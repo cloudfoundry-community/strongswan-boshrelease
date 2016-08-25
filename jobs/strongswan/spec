@@ -1,0 +1,23 @@
+---
+name: strongswan
+packages: [strongswan]
+templates:
+  bin/ctl: bin/ctl
+  bin/monit_debugger: bin/monit_debugger
+  bin/ipsec.sh: bin/ipsec.sh
+  config/ipsec.conf.erb: config/ipsec.conf
+  config/ipsec.secrets.erb: config/ipsec.secrets
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+
+properties:
+  strongswan.tunnels:
+    description: "Array of tunnel configuration."
+    example: |
+      tunnels:
+      - subnet: 10.5.0.0/16          # subnet added to local routing, to enable access across the tunnel
+        ip: 4.3.2.1                  # IP of remote side of the tunnel
+        secret: this is super secret # shared-key for the tunnel
+  strongswan.local_subnet:
+    description: "CIDR notation of the local subnet to advertise across the tunnel"

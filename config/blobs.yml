@@ -1,1 +1,9 @@
---- {}
+---
+gmp/gmp-6.1.1.tar.xz:
+  object_id: faad73a4-6c9d-4b56-9e0a-d8f4cc0cd95f
+  sha: 4da491d63ef850a7662f41da27ad1ba99c2dbaa1
+  size: 1943164
+strongswan/strongswan-5.5.0.tar.bz2:
+  object_id: fe8dc007-5683-401f-97fd-2cf60a895d36
+  sha: d76306a48f622ec4212413fa93dd858675ebf267
+  size: 4542458

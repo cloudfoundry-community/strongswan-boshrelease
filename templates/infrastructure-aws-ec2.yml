@@ -9,7 +9,7 @@ meta:
     version: latest
 
 jobs:
-  - name: just_install_packages
+  - name: strongswan
     networks:
       - name: strongswan1
     persistent_disk: (( grab meta.persistent_disk ))

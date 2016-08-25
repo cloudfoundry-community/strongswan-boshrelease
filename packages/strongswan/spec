@@ -1,0 +1,5 @@
+---
+name: strongswan
+dependencies: [gmp]
+files:
+- strongswan/strongswan-*.tar.bz2

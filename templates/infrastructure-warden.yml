@@ -13,7 +13,7 @@ update:
   update_watch_time: 1000-30000
 
 jobs:
-  - name: just_install_packages
+  - name: strongswan
     networks:
       - name: strongswan1
 
@@ -35,3 +35,7 @@ networks:
     gateway: 10.244.223.1
     static:
       - 10.244.223.2 - 10.244.223.60
+
+properties:
+  strongswan:
+    local_subnet: 10.244.0.0/16

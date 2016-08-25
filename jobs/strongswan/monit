@@ -1,0 +1,5 @@
+check process strongswan
+  with pidfile /var/run/charon.pid
+  start program "/var/vcap/jobs/strongswan/bin/monit_debugger strongswan_ctl '/var/vcap/jobs/strongswan/bin/ctl start'"
+  stop program "/var/vcap/jobs/strongswan/bin/monit_debugger strongswan_ctl '/var/vcap/jobs/strongswan/bin/ctl stop'"
+  group vcap

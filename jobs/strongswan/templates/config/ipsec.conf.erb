@@ -1,0 +1,28 @@
+# ipsec.conf - strongSwan IPsec configuration file
+
+# Amazon VPC IPsec configuration for the OpenVPN Access Server Appliance
+
+conn %default
+    left=%any
+    keyexchange=ikev1
+    keyingtries=%forever
+    esp=aes128-sha1-modp1024
+    ike=aes128-sha1-modp1024
+    ikelifetime=8h
+    auto=start
+    authby=secret
+    dpdaction=restart
+    closeaction=restart
+    dpddelay=10s
+    dpdtimeout=30s
+    leftsubnet=<%= p("strongswan.local_subnet") %>
+    leftupdown=/var/vcap/jobs/openswan/bin/ipsec.sh
+    installpolicy=no
+    # Enter your VPC subnet here (in CIDR format - e.g. rightsubnet=10.0.0.0/16)
+
+<% p("strongswan.tunnels").each_with_index do |conn, index| %>
+conn VPC-CUST-GW<%= index %>
+    # Enter the tunnel 1 endpoint here (e.g. right=205.251.233.121)
+    right=<%= conn['ip'] %>
+    rightsubnet=<%= conn['subnet'] %>
+<% end %>
