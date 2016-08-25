@@ -22,7 +22,7 @@ conn %default
 
 <% p("strongswan.tunnels").each_with_index do |conn, index| %>
 conn VPC-CUST-GW<%= index %>
-    # Enter the tunnel 1 endpoint here (e.g. right=205.251.233.121)
+    # Enter the tunnel <%= index %> endpoint here (e.g. right=205.251.233.121)
     right=<%= conn['ip'] %>
     rightsubnet=<%= conn['subnet'] %>
 <% end %>

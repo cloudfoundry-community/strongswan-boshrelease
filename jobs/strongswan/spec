@@ -7,6 +7,7 @@ templates:
   bin/ipsec.sh: bin/ipsec.sh
   config/ipsec.conf.erb: config/ipsec.conf
   config/ipsec.secrets.erb: config/ipsec.secrets
+  config/strongswan.conf: config/strongswan.conf
   data/properties.sh.erb: data/properties.sh
   helpers/ctl_setup.sh: helpers/ctl_setup.sh
   helpers/ctl_utils.sh: helpers/ctl_utils.sh

@@ -15,6 +15,9 @@ cd strongswan-5.5.0
 export CFLAGS="-I/var/vcap/packages/gmp/include"
 export LDFLAGS="-L/var/vcap/packages/gmp/lib"
 
-./configure --prefix ${BOSH_INSTALL_TARGET}
+./configure --prefix ${BOSH_INSTALL_TARGET} \
+  --sysconfdir=/var/vcap/jobs/strongswan/config \
+  --with-capabilities=native \
+  --with-fips-mode=1
 make
 make install
