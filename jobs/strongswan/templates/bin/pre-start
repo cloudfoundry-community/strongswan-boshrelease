@@ -5,6 +5,8 @@ set -u # report the usage of uninitialized variables
 
 # Setup env vars and folders for the webapp_ctl script
 source /var/vcap/jobs/strongswan/helpers/ctl_setup.sh 'strongswan'
+exec 1>> $LOG_DIR/pre-start.stdout.log
+exec 2>> $LOG_DIR/pre-start.stderr.log
 
 export PIDFILE=/var/run/charon.pid
 
@@ -17,11 +19,11 @@ TIMEOUT=30
 if [[ -e /var/run/charon.pid ]]; then
 	/var/vcap/packages/strongswan/sbin/ipsec stop
 
-	for i in seq 1 $TIMEOUT; do
+	for i in $(seq 1 $TIMEOUT); do
 		if [[ -e /var/run/charon.pid ]]; then
 			sleep 1
 		else
-			reak
+			break
 		fi
 	done
 
@@ -32,9 +34,9 @@ if [[ -e /var/run/charon.pid ]]; then
 fi
 
 ALIVE=""
-/var/vcap/package/strongswan/sbin/ipsec start >> $LOG_DIR/$JOB_NAME.log 2>&1
+/var/vcap/packages/strongswan/sbin/ipsec start >> $LOG_DIR/$JOB_NAME.log 2>&1
 
-for i in `seq 1 $TIMEOUT; do
+for i in $(seq 1 $TIMEOUT); do
 	ALIVE=$(/var/vcap/packages/strongswan/sbin/ipsec statusall | grep uptime || true)
 	if [[ -z "$ALIVE" ]]; then
 		echo "Waiting for ipsec to come up"
