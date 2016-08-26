@@ -1,0 +1,61 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+# Setup env vars and folders for the webapp_ctl script
+source /var/vcap/jobs/strongswan/helpers/ctl_setup.sh 'strongswan'
+
+export PIDFILE=/var/run/charon.pid
+
+# Always turn on ip forwarding, for good measure
+sysctl -w net.ipv4.ip_forward=1
+
+CONFIG_DIR=/var/vcap/jobs/strongswan/config
+TIMEOUT=30
+
+if [[ -e /var/run/charon.pid ]]; then
+	/var/vcap/packages/strongswan/sbin/ipsec stop
+
+	for i in seq 1 $TIMEOUT; do
+		if [[ -e /var/run/charon.pid ]]; then
+			sleep 1
+		else
+			reak
+		fi
+	done
+
+	if [ -e /var/run/charon.pid ]; then
+		echo "ipsec failed to stop properly"
+		exit 1
+	fi
+fi
+
+ALIVE=""
+/var/vcap/package/strongswan/sbin/ipsec start >> $LOG_DIR/$JOB_NAME.log 2>&1
+
+for i in `seq 1 $TIMEOUT; do
+	ALIVE=$(/var/vcap/packages/strongswan/sbin/ipsec statusall | grep uptime || true)
+	if [[ -z "$ALIVE" ]]; then
+		echo "Waiting for ipsec to come up"
+		sleep 1
+		continue
+	fi
+
+	ALIVE=$(echo $ALIVE | cut -d ' ' -f2)
+
+	case $ALIVE in
+		[1-9]*)
+			echo "ipsec is alive: uptime=$ALIVE"
+			exit 0
+			;;
+		*)
+			echo "ipsec is not alive: uptime=$ALIVE"
+			sleep 1
+			continue
+			;;
+	esac
+done
+
+echo "ipsec failed to start within $TIMEOUT seconds"
+exit 1

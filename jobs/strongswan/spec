@@ -2,7 +2,7 @@
 name: strongswan
 packages: [strongswan]
 templates:
-  bin/ctl: bin/ctl
+  bin/pre-start: bin/pre-start
   bin/monit_debugger: bin/monit_debugger
   bin/ipsec.sh: bin/ipsec.sh
   config/ipsec.conf.erb: config/ipsec.conf
