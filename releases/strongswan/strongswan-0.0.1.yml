@@ -1,0 +1,26 @@
+---
+packages:
+- name: gmp
+  version: 8656d043a535e052514290d76d01a3707d80446a
+  fingerprint: 8656d043a535e052514290d76d01a3707d80446a
+  sha1: a7fefd109fff6b9b011ebff40439b2e90d28f292
+  dependencies: []
+- name: strongswan
+  version: 1f3ac892a653e6d370e0c3dd9d22d55e1bff9d48
+  fingerprint: 1f3ac892a653e6d370e0c3dd9d22d55e1bff9d48
+  sha1: 84b7e9ae4a6f3f194dfda796273a7e65722e02a1
+  dependencies:
+  - gmp
+jobs:
+- name: strongswan
+  version: 8193aa3353eb0c60027a361e5177c2ab62c05cdc
+  fingerprint: 8193aa3353eb0c60027a361e5177c2ab62c05cdc
+  sha1: 8ac80c30dc15f01c1e179cb6fc43103e46227968
+license:
+  version: a11dc44d2ff75b964daf257650268340e4c5ba39
+  fingerprint: a11dc44d2ff75b964daf257650268340e4c5ba39
+  sha1: 83b213f166a12d6117fa5d833dc9bd49522e4428
+commit_hash: 1201ea62
+uncommitted_changes: true
+name: strongswan
+version: 0.0.1
