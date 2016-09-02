@@ -16,13 +16,13 @@ conn %default
     dpddelay=10s
     dpdtimeout=30s
     leftsubnet=<%= p("strongswan.local_subnet") %>
-    leftupdown=/var/vcap/jobs/openswan/bin/ipsec.sh
+    leftupdown=/var/vcap/jobs/strongswan/bin/ipsec.sh
     installpolicy=no
     # Enter your VPC subnet here (in CIDR format - e.g. rightsubnet=10.0.0.0/16)
+    rightsubnet=<%= p("strongswan.remote_subnet") %>
 
 <% p("strongswan.tunnels").each_with_index do |conn, index| %>
 conn VPC-CUST-GW<%= index %>
     # Enter the tunnel <%= index %> endpoint here (e.g. right=205.251.233.121)
     right=<%= conn['ip'] %>
-    rightsubnet=<%= conn['subnet'] %>
 <% end %>

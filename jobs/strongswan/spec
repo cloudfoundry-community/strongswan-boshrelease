@@ -17,8 +17,9 @@ properties:
     description: "Array of tunnel configuration."
     example: |
       tunnels:
-      - subnet: 10.5.0.0/16          # subnet added to local routing, to enable access across the tunnel
-        ip: 4.3.2.1                  # IP of remote side of the tunnel
+      - ip: 4.3.2.1                  # IP of remote side of the tunnel
         secret: this is super secret # shared-key for the tunnel
   strongswan.local_subnet:
-    description: "CIDR notation of the local subnet to advertise across the tunnel"
+    description: "Comma-separated CIDR notation of the local subnets to advertise across the tunnel"
+  strongswan.remote_subnet:
+    description: "Comma-separated CIDR notation of the remote subnets to advertise across the tunnel"
