@@ -39,3 +39,4 @@ networks:
 properties:
   strongswan:
     local_subnet: 10.244.0.0/16
+    remote_subnet: 10.4.0.0/16 # FIXME replace wiht a real subnet
