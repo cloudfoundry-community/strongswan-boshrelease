@@ -13,6 +13,9 @@ export PIDFILE=/var/run/charon.pid
 # Always turn on ip forwarding, for good measure
 sysctl -w net.ipv4.ip_forward=1
 
+# Use 'loose mode' for reverse path filtering
+sysctl -w net.ipv4.conf.all.rp_filter=2
+
 CONFIG_DIR=/var/vcap/jobs/strongswan/config
 TIMEOUT=30
 
